@@ -55,7 +55,7 @@ Change environment variable
 Install dependencies on both client and server
 
 ```bash
-cd /client && npm install && cd ../server && npm install && cd ..
+cd ./client && npm install && cd ../server && npm install && cd ..
 ```
 
 ```bash
