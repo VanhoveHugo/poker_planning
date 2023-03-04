@@ -1,8 +1,396 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  text-decoration: none;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul {
+  list-style: none;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px white inset; /* Change the color to your own background color */
+  -webkit-text-fill-color: #333;
+}
+
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 50px white inset; /*your box-shadow*/
+  -webkit-text-fill-color: #333;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+html {
+  font-size: 10px;
+}
+@media screen and (min-width: 600px) {
+  html {
+    font-size: 16px;
+  }
+}
+
 body {
-  background: #f5f5f5;
   font-family: "Open Sans", sans-serif;
-  font-size: 16px;
   color: #333;
   margin: 0;
   padding: 0;
+}
+
+.popin + .app {
+  filter: blur(2px);
+}
+
+.app {
+  position: relative;
+  z-index: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 2rem;
+}
+.app .username {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-transform: capitalize;
+  font-weight: 700;
+  font-size: 1.25rem;
+  outline: 0px solid #e1e1e1;
+  transition: background 200ms ease, outline 100ms ease;
+}
+.app .username:hover {
+  background: #e1e1e1;
+}
+.app .username:active, .app .username:focus {
+  background: #fff;
+  outline: 2px solid #e1e1e1;
+}
+.app .username .spectator {
+  margin-right: 0.4rem;
+}
+.app .username svg:last-child {
+  margin-left: 0.2rem;
+}
+.app article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.app .card {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4.375rem;
+  width: 2.5rem;
+  border: 1px solid #FFF;
+  margin-bottom: 0.25rem;
+  border-radius: 8px;
+  box-shadow: inset 0px 0px 0px 2px #6d83f2;
+  color: #6d83f2;
+  background: #FFF;
+  overflow: hidden;
+}
+.app .card::before {
+  content: "";
+  position: absolute;
+  display: block;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #e1e1e1;
+  transition: width 200ms ease;
+  z-index: 100;
+}
+.app .card.active::before {
+  width: 0;
+}
+.app .card.ready::before {
+  background: linear-gradient(45deg, #6d83f2 12%, transparent 0, transparent 88%, #6d83f2 0), linear-gradient(135deg, transparent 37%, #cbd3fa 0, #cbd3fa 63%, transparent 0), linear-gradient(45deg, transparent 37%, #6d83f2 0, #6d83f2 63%, transparent 0), #f9faff;
+  background-size: 17px 17px;
+}
+.app .card.spectator {
+  box-shadow: none;
+  border: 2px dashed #666;
+}
+.app .card.spectator::before {
+  width: 100%;
+}
+.app .card.spectator p {
+  display: none;
+}
+.app .card.spectator svg {
+  z-index: 100;
+  color: #666;
+  font-size: 1.5rem;
+}
+.app .card p {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+.app h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  width: 4.5rem;
+  text-align: center;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+.popin {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(109, 131, 242, 0.2);
+  border-left: 1px solid #ccc;
+  overflow-y: auto;
+  z-index: 100;
+}
+.popin .inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 2rem);
+  max-width: 630px;
+  padding: 4.5rem;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+.popin h1 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+.popin .username,
+.popin .spectator {
+  display: flex;
+  align-items: center;
+}
+.popin .username {
+  position: relative;
+  margin-bottom: 10px;
+}
+.popin .username label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transform-origin: left center;
+  left: 0.75rem;
+  font-size: 1rem;
+  background: #FFF;
+  padding: 0 0.25rem;
+  transition: top 200ms ease, font-size 200ms ease;
+}
+.popin .username input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid #6d83f2;
+  background: #fff;
+  border-radius: 5px;
+}
+.popin .username input:focus + label, .popin .username input:valid + label, .popin .username input:-webkit-autofill + label {
+  top: 0.25rem;
+  font-size: 0.75rem;
+}
+.popin .spectator {
+  margin-bottom: 10px;
+  font-size: 0.8em;
+  color: #666;
+}
+.popin .spectator input {
+  margin-right: 5px;
+}
+.popin button {
+  padding: 0.75rem;
+  background: #6d83f2;
+  border-radius: 5px;
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 200ms ease;
+  color: #fff;
+}
+.popin button:hover {
+  background: #9cabf6;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  min-height: 50px;
+}
+header div {
+  display: flex;
+  align-items: center;
+}
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+header img {
+  margin-right: 1rem;
+  max-width: 2rem;
+  height: auto;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+}
+.table .inner {
+  overflow: scroll;
+  grid-gap: 0.8rem;
+  display: inline-grid;
+  grid-template-areas: "left top right" "left table right" "left bottom right";
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
+}
+.table .inner .right, .table .inner .left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+}
+.table .inner .right article, .table .inner .left article {
+  margin: 0.5rem auto;
+}
+.table .inner .glow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #cbd3fa;
+  width: 21.25rem;
+  min-height: 9.375rem;
+  border-radius: 25px;
+}
+.table .inner .glow button, .table .inner .glow p {
+  font-weight: 700;
+}
+.table .inner .glow p {
+  font-size: 2rem;
+  color: #6d83f2;
+}
+.table .inner .glow button {
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  background: #6d83f2;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 200ms ease;
+  color: #fff;
+}
+.table .inner .glow button:hover {
+  background: #3e5bee;
+}
+.table .inner .glow button.active {
+  background: #6d83f2;
+}
+.table .inner .glow button.active:hover {
+  background: #cbd3fa;
+}
+.table .inner .top, .table .inner .bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 5.75rem;
+}
+.table .inner .top {
+  font-size: 1rem;
+}
+.table .inner .top a {
+  font-weight: 600;
+  color: #6d83f2;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+  text-decoration: underline;
+}
+.table .inner .solo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.table .others {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.table .others article {
+  margin: 0.5rem;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+footer p {
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
+}
+footer .values {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  height: 5.375rem;
+}
+footer .values button {
+  display: block;
+  border: 2px solid #6d83f2;
+  background: white;
+  color: #6d83f2;
+  border-radius: 8px;
+  height: 5.375rem;
+  width: 3rem;
+  margin: 0 0.5rem;
+  font-weight: 600;
+  transform: translateY(0);
+  transition: transform 200ms ease;
+}
+footer .values button.active {
+  background: #6d83f2;
+  color: #fff;
+  transform: translateY(-20px);
+}
+footer .stats p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6d83f2;
+  margin: 0.5rem 0;
+  text-align: center;
 }/*# sourceMappingURL=index.css.map */
