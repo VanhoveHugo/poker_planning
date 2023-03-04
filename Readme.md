@@ -52,6 +52,16 @@ Change environment variable
 
 ## Get Started
 
+Install dependencies on both client and server
+
+```bash
+cd /client && npm install && cd ../server && npm install && cd ..
+```
+
+```bash
+docker-compose up
+```
+
 Go on folder pokerplanning and type :
 
 ```bash
