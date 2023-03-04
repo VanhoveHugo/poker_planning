@@ -31,7 +31,7 @@ Change the #hex in client/styles/_theme.scss and regenerated SASS
 ### Client
 Replace .env.sample with .env on **client file** 
 ```bash
-cd /client
+cd ./client
 cp .env.sample .env
 ```
 Change environment variable
@@ -43,7 +43,7 @@ Change environment variable
 ### Server
 Replace .env.sample with .env on **server file** 
 ```bash
-cd server/ 
+cd ./server
 cp .env.sample .env
 ```
 Change environment variable
