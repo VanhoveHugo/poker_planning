@@ -9,7 +9,8 @@ import { socket } from './_app';
 
 const App = () => {
     const title = process.env.NEXT_PUBLIC_NAME;
-    const notes = process.env.NEXT_PUBLIC_NOTES.split(',');
+    let notes = [];
+    if(process.env.NEXT_PUBLIC_NOTES) notes = process.env.NEXT_PUBLIC_NOTES.split(',');
     const username = useLocalStorage(`${title.toLowerCase()}_username`);
     const spectator = useLocalStorage(`${title.toLowerCase()}_spectator`);
     const [data, setData] = useState([]);
