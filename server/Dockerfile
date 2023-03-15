@@ -2,10 +2,8 @@ FROM node:lts-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+RUN npm config set fund false && npm install
 
-RUN npm install
-
-COPY . .
+COPY . ./
 
 CMD ["npm", "start"]
